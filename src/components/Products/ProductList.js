@@ -1,17 +1,19 @@
+import {useContext} from 'react';
 import ProductItem from './ProductItem';
+import ProductContext from '../../store/product-context';
 import "./ProductList.css";
 
-const ProductList = (props) => {
-  const { products } = props;
+const ProductList = () => {
+  const productCtx = useContext(ProductContext);
 
   //Separate products based on their categories
-  const electronicItems = products.filter(
+  const electronicItems = productCtx.products.filter(
     (product) => product.category === "Electronics"
   );
 
-  const foodItems = products.filter((product) => product.category === "Food");
+  const foodItems = productCtx.products.filter((product) => product.category === "Food");
 
-  const skincareItems = products.filter(
+  const skincareItems = productCtx.products.filter(
     (product) => product.category === "Skincare"
   );
 
@@ -20,15 +22,15 @@ const ProductList = (props) => {
       <h2>Products</h2>
       <div className="category">
         <h3>Electronic Items</h3>
-        <ProductItem productItems = {electronicItems} />
+        <ProductItem productItems = {electronicItems} onDeleteProduct={productCtx.onDeleteProduct} />
       </div>
       <div className="category">
         <h3>Food Items</h3>
-        <ProductItem productItems = {foodItems} />
+        <ProductItem productItems = {foodItems} onDeleteProduct={productCtx.onDeleteProduct} />
       </div>
       <div className="category">
         <h3>Skincare Items</h3>
-        <ProductItem productItems = {skincareItems} />
+        <ProductItem productItems = {skincareItems} onDeleteProduct={productCtx.onDeleteProduct} />
       </div>
     </div>
   );

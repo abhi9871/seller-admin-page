@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import ProductContext from '../../store/product-context';
 import Button from '../UI/Button';
 import "./AdminPage.css";
 
-const AdminPage = (props) => {
+const AdminPage = () => {
+
+  const productCtx = useContext(ProductContext);
 
   const [enteredProductId, setProductId] = useState('');
   const [enteredSellingPrice, setSellingPrice] = useState('');
@@ -33,8 +36,7 @@ const AdminPage = (props) => {
       productName: enteredProductName,
       category: enteredCategory
     }
-    localStorage.setItem(productData.productId, JSON.stringify(productData));
-    props.onAddProduct(productData);
+    productCtx.onAddProduct(productData);
     setProductId('');
     setSellingPrice('');
     setProductName('');
